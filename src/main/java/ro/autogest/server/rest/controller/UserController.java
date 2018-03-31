@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.rest.modal.UserModal;
 
 
@@ -45,6 +46,10 @@ public class UserController {
 		userModal1.setLastName("vijay");
 		list.add(userModal1);
 		return  list;
+	}
+	
+	public Utilizator createUtilizator(Utilizator utilizator) {
+		
 	}
 	
 }
