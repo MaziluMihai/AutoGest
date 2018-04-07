@@ -38,4 +38,25 @@ public class UtilizatorService {
 		return utilizatorDAO.listaUtilizatori();
 	}
 
+	public void editareUtilizator(Utilizator utilizator, int id) throws NotFoundException {
+		Utilizator dbUtilizator = utilizatorDAO.getUtilizator(id);
+		if (dbUtilizator == null) {
+			throw new NotFoundException("Utilizatorul nu a fost gasit");
+		}
+		
+		if(utilizator.getEmail() == null){
+			utilizator.setEmail(dbUtilizator.getEmail());
+		}
+		
+		utilizatorDAO.update(utilizator, id);
+	}
+	
+	public void stergereUtilizator(int id) throws NotFoundException {
+		Utilizator dbUtilizator = utilizatorDAO.getUtilizator(id);
+		if (dbUtilizator == null) {
+			throw new NotFoundException("Utilizatorul nu a fost gasit");
+		}
+		utilizatorDAO.delete(id);
+	}
+
 }

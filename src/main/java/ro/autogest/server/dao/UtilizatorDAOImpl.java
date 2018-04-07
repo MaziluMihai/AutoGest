@@ -29,7 +29,7 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		String sql = "SELECT * FROM Utilizator WHERE id_utilizator = ?";
 
 		try {
-			return jdbcTemplate.queryForObject(sql, new Object[] {id}, new UtilizatorMapper());
+			return jdbcTemplate.queryForObject(sql, new Object[] { id }, new UtilizatorMapper());
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
@@ -38,9 +38,9 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	public Utilizator getUtilizatorByEmail(String email) {
 		String sql = "SELECT * FROM Utilizator WHERE email = ?";
 
-		List<Utilizator> utilizatori = jdbcTemplate.query(sql, new Object[] {email}, new UtilizatorMapper());
-		
-		if(utilizatori == null || (utilizatori != null && utilizatori.size() == 0)){
+		List<Utilizator> utilizatori = jdbcTemplate.query(sql, new Object[] { email }, new UtilizatorMapper());
+
+		if (utilizatori == null || (utilizatori != null && utilizatori.size() == 0)) {
 			return null;
 		}
 		return utilizatori.get(0);
@@ -50,6 +50,15 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		String sql = "select * from Utilizator";
 		List<Utilizator> utilizatori = jdbcTemplate.query(sql, new UtilizatorMapper());
 		return utilizatori;
+	}
+
+	public void update(Utilizator utilizator, Integer id) {
+		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , email = ? WHERE id_utilizator = ? ", 
+				utilizator.getNume(), utilizator.getEmail(), id);
+	}
+
+	public void delete(Integer id) {
+		jdbcTemplate.update("DELETE from Utilizator WHERE id_utilizator = ? ", id);
 	}
 
 }
