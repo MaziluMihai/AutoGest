@@ -1,5 +1,8 @@
 package ro.autogest.server.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Utilizator {
 	private Integer id;
 	private String nume;
