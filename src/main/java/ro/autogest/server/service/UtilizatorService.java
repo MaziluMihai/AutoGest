@@ -16,13 +16,14 @@ public class UtilizatorService {
 	@Autowired
 	private UtilizatorDAO utilizatorDAO;
 
-	public Utilizator creareUtilizator(String nume, String email) throws ValidationException {
+	public Utilizator creareUtilizator(String nume, String prenume, String email, String parola, String functia)
+			throws ValidationException {
 		// validate unique email
 		if (utilizatorDAO.getUtilizatorByEmail(email) != null) {
 			throw new ValidationException("Utilizatorul cu emailul " + email + " exista deja!");
 		}
 
-		utilizatorDAO.create(nume, email);
+		utilizatorDAO.create(nume, prenume, email, parola, functia);
 		return utilizatorDAO.getUtilizatorByEmail(email);
 	}
 
@@ -43,20 +44,32 @@ public class UtilizatorService {
 		if (dbUtilizator == null) {
 			throw new NotFoundException("Utilizatorul nu a fost gasit");
 		}
-		
-		if(utilizator.getEmail() == null){
+
+		if (utilizator.getEmail() == null) {
 			utilizator.setEmail(dbUtilizator.getEmail());
 		}
-		
+
 		utilizatorDAO.update(utilizator, id);
 	}
-	
+
 	public void stergereUtilizator(int id) throws NotFoundException {
 		Utilizator dbUtilizator = utilizatorDAO.getUtilizator(id);
 		if (dbUtilizator == null) {
 			throw new NotFoundException("Utilizatorul nu a fost gasit");
 		}
 		utilizatorDAO.delete(id);
+	}
+
+	public Utilizator getUserByEmail(String email) {
+
+		return utilizatorDAO.getUtilizatorByEmail(email);
+	}
+
+	public Boolean existaUser(String email) {
+		if (utilizatorDAO.getUtilizatorByEmail(email) != null)
+			return true;
+		else
+			return false;
 	}
 
 }

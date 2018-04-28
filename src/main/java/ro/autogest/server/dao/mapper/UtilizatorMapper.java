@@ -14,6 +14,9 @@ public class UtilizatorMapper implements RowMapper<Utilizator>{
 		u.setId(rs.getInt("id_utilizator"));
 		u.setEmail(rs.getString("email"));
 		u.setNume(rs.getString("nume"));
+		u.setPrenume(rs.getString("prenume"));
+		u.setParola(rs.getString("parola"));
+		u.setFunctia(rs.getString("functia"));
 		return u;
 		
 	}

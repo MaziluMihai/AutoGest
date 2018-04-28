@@ -17,11 +17,12 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void create(String nume, String email) {
-		String SQL = "insert into Utilizator (nume, email) values (?, ?)";
+	public void create(String nume, String prenume, String email, String parola, String functia) {
+		String SQL = "insert into Utilizator (nume, prenume, email, parola, functia) values (?, ?, ?, ?, ?)";
 
-		jdbcTemplate.update(SQL, nume, email);
-		System.out.println("Created Record Name = " + nume + " Age = " + email);
+		jdbcTemplate.update(SQL, nume, prenume, email, parola, functia);
+		System.out.println("Created Record Nume = " + nume + " Prenume= " + prenume + " Emaill = " + email + " Parola= "
+				+ parola + "Functie= " + functia);
 		return;
 	}
 
@@ -53,12 +54,16 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	}
 
 	public void update(Utilizator utilizator, Integer id) {
-		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , email = ? WHERE id_utilizator = ? ", 
-				utilizator.getNume(), utilizator.getEmail(), id);
+		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , prenume= ? , email = ? , parola= ? , functia= ? WHERE id_utilizator = ? ", utilizator.getNume(),
+				utilizator.getPrenume(), utilizator.getEmail(), utilizator.getParola(), utilizator.getFunctia(), id);
 	}
 
 	public void delete(Integer id) {
 		jdbcTemplate.update("DELETE from Utilizator WHERE id_utilizator = ? ", id);
 	}
+
+	
+	
+	
 
 }

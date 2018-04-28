@@ -6,7 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Utilizator {
 	private Integer id;
 	private String nume;
+	private String prenume;
 	private String email;
+	private String parola;
+	private String functia;
+	
 
 	public Integer getId() {
 		return id;
@@ -32,4 +36,29 @@ public class Utilizator {
 		this.email = email;
 	}
 
+	public String getPrenume() {
+		return prenume;
+	}
+
+	public void setPrenume(String prenume) {
+		this.prenume = prenume;
+	}
+
+	public String getParola() {
+		return parola;
+	}
+
+	public void setParola(String parola) {
+		this.parola = parola;
+	}
+
+	public String getFunctia() {
+		return functia;
+	}
+
+	public void setFunctia(String functia) {
+		this.functia = functia;
+	}
+
+	
 }
