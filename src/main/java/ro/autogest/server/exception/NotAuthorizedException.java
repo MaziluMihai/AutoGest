@@ -6,15 +6,15 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class NotFoundException extends Exception implements ExceptionMapper<NotFoundException> {
+public class NotAuthorizedException extends Exception implements ExceptionMapper<NotAuthorizedException> {
 
 	private String message;
 	
-	public NotFoundException(){
+	public NotAuthorizedException(){
 		
 	}
 	
-	public NotFoundException(String message) {
+	public NotAuthorizedException(String message) {
 		super();
 		this.message = message;
 	}
@@ -27,8 +27,8 @@ public class NotFoundException extends Exception implements ExceptionMapper<NotF
 		this.message = message;
 	}
 
-	public Response toResponse(NotFoundException exception) {
-		return Response.status(HttpServletResponse.SC_NOT_FOUND).entity(exception.getMessage())
+	public Response toResponse(NotAuthorizedException exception) {
+		return Response.status(HttpServletResponse.SC_FORBIDDEN).entity(exception.getMessage())
                 .type("text/plain").build();
 	}
 	

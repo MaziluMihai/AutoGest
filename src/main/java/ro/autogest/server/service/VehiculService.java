@@ -3,19 +3,25 @@ package ro.autogest.server.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import ro.autogest.server.dao.InregistrareAlimentareDAO;
 import ro.autogest.server.dao.VehiculDAO;
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
+import ro.autogest.server.model.InregistrareAlimentare;
 import ro.autogest.server.model.Vehicul;
 
+@Service
 public class VehiculService {
 
 	@Autowired
 	private VehiculDAO vehiculDAO;
 
-	public Vehicul creareVehicul(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare)
-			throws ValidationException {
+	@Autowired
+	private InregistrareAlimentareDAO inregistrareDAO;
+
+	public Vehicul creareVehicul(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare) throws ValidationException {
 		// validate unique id_utilizator
 		if (vehiculDAO.getVehiculByNumarInmatriculare(numar_inmatriculare) != null) {
 			throw new ValidationException("Vehiculul cu numarul " + numar_inmatriculare + " exista deja!");
@@ -57,4 +63,11 @@ public class VehiculService {
 		vehiculDAO.delete(id);
 	}
 
+
+	public boolean creareAlimentare(InregistrareAlimentare inregistrare) {
+		//TODO:
+		//validare numar de km, daca id-ul vehicului corespunde utriliztorului care face cererea, etc..
+		inregistrareDAO.create(inregistrare);
+		return true;
+	}
 }

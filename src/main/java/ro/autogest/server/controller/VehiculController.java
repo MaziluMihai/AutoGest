@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
+import ro.autogest.server.model.BooleanResponse;
+import ro.autogest.server.model.InregistrareAlimentare;
 import ro.autogest.server.model.Vehicul;
 import ro.autogest.server.service.VehiculService;
 
@@ -27,7 +29,7 @@ public class VehiculController {
 	@Autowired
 	private VehiculService vehiculService;
 
-
+   
 	@GET
 	@Path("/{id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -71,5 +73,14 @@ public class VehiculController {
 	public Response stergereVehicul(@PathParam("id") int id) throws NotFoundException {
 		vehiculService.stergereVehicul(id);
 		return Response.status(Response.Status.OK.getStatusCode()).build();
+	}
+	
+	@POST
+	@Path("/inregistrare")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public BooleanResponse creareInregistrare(InregistrareAlimentare inregistrare) throws ValidationException {
+		return new BooleanResponse(vehiculService.creareAlimentare(inregistrare));
 	}
 }

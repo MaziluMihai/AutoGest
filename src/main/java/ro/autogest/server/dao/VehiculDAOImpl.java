@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import ro.autogest.server.dao.mapper.UtilizatorMapper;
 import ro.autogest.server.dao.mapper.VehiculMapper;
 import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.Vehicul;
 
-public class VehiculDAOImpl {
+@Repository
+public class VehiculDAOImpl implements VehiculDAO{
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

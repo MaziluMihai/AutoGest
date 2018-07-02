@@ -1,5 +1,7 @@
 package ro.autogest.server.model;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -12,6 +14,9 @@ public class Utilizator {
 	private String parola;
 	private String functia;
 	private Integer telefon;
+	
+	private Integer token;
+	private Date tokenDate;
 	
 
 	public String getTip_utilizator() {
@@ -78,5 +83,24 @@ public class Utilizator {
 		this.functia = functia;
 	}
 
+
+	public Integer getToken() {
+		return token;
+	}
+
+	public void setToken(Integer token) {
+		this.token = token;
+	}
+
+	public Date getTokenDate() {
+		return tokenDate;
+	}
+
+	public void setTokenDate(Date tokenDate) {
+		this.tokenDate = tokenDate;
+	}
+
+	
+	
 	
 }

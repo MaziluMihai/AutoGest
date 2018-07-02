@@ -54,8 +54,8 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	}
 
 	public void update(Utilizator utilizator, Integer id) {
-		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , prenume= ? , tip= ?, email = ? , parola= ? , functia= ?, telefon=? WHERE id_utilizator = ? ", utilizator.getNume(),
-				utilizator.getPrenume(), utilizator.getTip_utilizator(), utilizator.getEmail(), utilizator.getParola(), utilizator.getFunctia(), utilizator.getTelefon(), id);
+		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , prenume= ? , tip_utilizator= ?, email = ? , parola= ? , functia= ?, telefon=?, token=?, token_data_expirare=? WHERE id_utilizator = ? ", utilizator.getNume(),
+				utilizator.getPrenume(), utilizator.getTip_utilizator(), utilizator.getEmail(), utilizator.getParola(), utilizator.getFunctia(), utilizator.getTelefon(), utilizator.getToken(), utilizator.getTokenDate(), id);
 	}
 
 	public void delete(Integer id) {

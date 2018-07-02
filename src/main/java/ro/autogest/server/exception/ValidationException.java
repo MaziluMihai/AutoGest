@@ -1,5 +1,6 @@
 package ro.autogest.server.exception;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -27,7 +28,7 @@ public class ValidationException extends Exception implements ExceptionMapper<Va
 	}
 
 	public Response toResponse(ValidationException exception) {
-		return Response.status(500).entity(exception.getMessage())
+		return Response.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).entity(exception.getMessage())
                 .type("text/plain").build();
 	}
 	

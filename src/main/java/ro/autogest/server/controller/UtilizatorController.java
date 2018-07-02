@@ -16,11 +16,15 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import ro.autogest.server.exception.NotAuthorizedException;
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
 import ro.autogest.server.model.BooleanResponse;
 import ro.autogest.server.model.CredentialeLogin;
+import ro.autogest.server.model.IntegerResponse;
+import ro.autogest.server.model.StringResponse;
 import ro.autogest.server.model.Utilizator;
+import ro.autogest.server.service.SecurityService;
 import ro.autogest.server.service.UtilizatorService;
 
 @Path("/user")
@@ -29,6 +33,9 @@ public class UtilizatorController {
 	@Autowired
 	private UtilizatorService utilizatorService;
 
+	@Autowired
+	private SecurityService securityService;
+	
 	@GET
 	@Path("/{id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -88,11 +95,11 @@ public class UtilizatorController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public BooleanResponse login(CredentialeLogin credentialeLogin) throws ValidationException {
-		if (utilizatorService.existaUser(credentialeLogin.getEmail()))
-			return new BooleanResponse(true);
-		else
-			return new BooleanResponse(false);
+	public IntegerResponse login(CredentialeLogin credentialeLogin) throws NotAuthorizedException {
+		
+		Integer token = securityService.login(credentialeLogin);
+		return new IntegerResponse(token);
+		
 	}
 	
 	
