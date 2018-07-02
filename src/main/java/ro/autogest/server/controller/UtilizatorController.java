@@ -50,8 +50,8 @@ public class UtilizatorController {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response createUtilizator(Utilizator utilizator) throws ValidationException {
-		utilizatorService.creareUtilizator(utilizator.getNume(), utilizator.getPrenume(), utilizator.getEmail(),
-				utilizator.getParola(), utilizator.getFunctia());
+		utilizatorService.creareUtilizator(utilizator.getNume(), utilizator.getPrenume(),utilizator.getTip_utilizator(),
+				utilizator.getEmail(),utilizator.getParola(), utilizator.getFunctia(),utilizator.getTelefon());
 		return Response.status(Response.Status.OK.getStatusCode()).build();
 	}
 

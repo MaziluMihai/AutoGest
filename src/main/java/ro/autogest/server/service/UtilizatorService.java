@@ -16,14 +16,14 @@ public class UtilizatorService {
 	@Autowired
 	private UtilizatorDAO utilizatorDAO;
 
-	public Utilizator creareUtilizator(String nume, String prenume, String email, String parola, String functia)
-			throws ValidationException {
-		// validate unique email
+	public Utilizator creareUtilizator(String nume, String prenume, String tip_utilizator, String email,
+			String parola, String functia, Integer telefon) throws ValidationException {
+		
 		if (utilizatorDAO.getUtilizatorByEmail(email) != null) {
 			throw new ValidationException("Utilizatorul cu emailul " + email + " exista deja!");
 		}
 
-		utilizatorDAO.create(nume, prenume, email, parola, functia);
+		utilizatorDAO.create(nume, prenume, tip_utilizator, email, parola, functia, telefon);
 		return utilizatorDAO.getUtilizatorByEmail(email);
 	}
 

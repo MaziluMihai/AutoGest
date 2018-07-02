@@ -7,10 +7,28 @@ public class Utilizator {
 	private Integer id;
 	private String nume;
 	private String prenume;
+	private String tip_utilizator;
 	private String email;
 	private String parola;
 	private String functia;
+	private Integer telefon;
 	
+
+	public String getTip_utilizator() {
+		return tip_utilizator;
+	}
+
+	public void setTip_utilizator(String tip_utilizator) {
+		this.tip_utilizator = tip_utilizator;
+	}
+
+	public Integer getTelefon() {
+		return telefon;
+	}
+
+	public void setTelefon(Integer telefon) {
+		this.telefon = telefon;
+	}
 
 	public Integer getId() {
 		return id;

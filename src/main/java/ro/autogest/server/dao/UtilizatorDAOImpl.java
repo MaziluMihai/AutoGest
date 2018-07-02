@@ -17,12 +17,12 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void create(String nume, String prenume, String email, String parola, String functia) {
-		String SQL = "insert into Utilizator (nume, prenume, email, parola, functia) values (?, ?, ?, ?, ?)";
+	public void create(String nume, String prenume, String tip_utilizator, String email, String parola, String functia, Integer telefon) {
+		String SQL = "insert into Utilizator (nume, prenume, tip_utilizator, email, parola, functia, telefon) values (?, ?, ?, ?, ?, ?, ?)";
 
-		jdbcTemplate.update(SQL, nume, prenume, email, parola, functia);
-		System.out.println("Created Record Nume = " + nume + " Prenume= " + prenume + " Emaill = " + email + " Parola= "
-				+ parola + "Functie= " + functia);
+		jdbcTemplate.update(SQL, nume, prenume, tip_utilizator, email, parola, functia, telefon );
+		System.out.println("Created Record Nume = " + nume + " Prenume= " + prenume + " Tip= " + tip_utilizator + " Emaill = " + email + " Parola= "
+				+ parola + " Functie= " + functia + " Telefon= " + telefon );
 		return;
 	}
 
@@ -54,8 +54,8 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	}
 
 	public void update(Utilizator utilizator, Integer id) {
-		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , prenume= ? , email = ? , parola= ? , functia= ? WHERE id_utilizator = ? ", utilizator.getNume(),
-				utilizator.getPrenume(), utilizator.getEmail(), utilizator.getParola(), utilizator.getFunctia(), id);
+		jdbcTemplate.update("UPDATE Utilizator SET nume = ? , prenume= ? , tip= ?, email = ? , parola= ? , functia= ?, telefon=? WHERE id_utilizator = ? ", utilizator.getNume(),
+				utilizator.getPrenume(), utilizator.getTip_utilizator(), utilizator.getEmail(), utilizator.getParola(), utilizator.getFunctia(), utilizator.getTelefon(), id);
 	}
 
 	public void delete(Integer id) {

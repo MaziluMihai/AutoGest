@@ -12,3 +12,20 @@ CREATE TABLE Utilizator(
     CONSTRAINT UTILIZATOR_PK PRIMARY KEY(id_utilizator)   
 );
 
+
+CREATE TABLE Vehicul(
+    id_vehicul INTEGER(10) NOT NULL AUTO_INCREMENT,
+    id_utilizator INTEGER(10) NOT NULL UNIQUE,
+    status_vehicul VARCHAR(30) ,
+    numar_inmatriculare VARCHAR(30) NOT NULL UNIQUE ,
+    marca VARCHAR(50) NOT NULL,
+    modelul VARCHAR(50) ,
+    tip VARCHAR(50) ,
+    motorizare VARCHAR(30) NOT NULL,
+    an_fabricatiei INTEGER(4),
+    consumul_normal INTEGER(4) ,
+    CONSTRAINT vehicul_pk PRIMARY KEY(id_vehicul),
+    CONSTRAINT vehicul_utilizator_fk FOREIGN KEY(id_utilizator) REFERENCES utilizator(id_utilizator)  
+);
+
+
