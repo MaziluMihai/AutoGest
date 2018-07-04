@@ -27,9 +27,6 @@ public class VehiculService {
 	@Autowired
 	private InregistrareAlimentareDAO inregistrareDAO;
 
-<<<<<<< HEAD
-	public Vehicul creareVehicul(Vehicul vehicul) throws ValidationException {
-=======
 	@Autowired
 	private IntrareServiceDAO intrareServiceDAO;
 	
@@ -39,9 +36,7 @@ public class VehiculService {
 	@Autowired
 	private TaxaDAO taxaDAO;
 
-	public Vehicul creareVehicul(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare)
-			throws ValidationException {
->>>>>>> 7011055ba602b5b2842c0b01ff6f454f9700fe20
+	public Vehicul creareVehicul(Vehicul vehicul) throws ValidationException {
 		// validate unique id_utilizator
 		if (vehiculDAO.getVehiculByNumarInmatriculare(vehicul.getNumarInmatriculare()) != null) {
 			throw new ValidationException("Vehiculul cu numarul " + vehicul.getNumarInmatriculare() + " exista deja!");
