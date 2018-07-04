@@ -18,9 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
+import ro.autogest.server.model.Asigurare;
 import ro.autogest.server.model.BooleanResponse;
 import ro.autogest.server.model.InregistrareAlimentare;
+<<<<<<< HEAD
 import ro.autogest.server.model.Utilizator;
+=======
+import ro.autogest.server.model.IntrareService;
+import ro.autogest.server.model.Taxa;
+>>>>>>> 7011055ba602b5b2842c0b01ff6f454f9700fe20
 import ro.autogest.server.model.Vehicul;
 import ro.autogest.server.service.UtilizatorService;
 import ro.autogest.server.service.VehiculService;
@@ -31,9 +37,12 @@ public class VehiculController {
 	@Autowired
 	private VehiculService vehiculService;
 
+<<<<<<< HEAD
 	@Autowired
 	private UtilizatorService utilizatorService;
    
+=======
+>>>>>>> 7011055ba602b5b2842c0b01ff6f454f9700fe20
 	@GET
 	@Path("/{id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -41,6 +50,7 @@ public class VehiculController {
 
 		return vehiculService.getVehiculById(id);
 	}
+<<<<<<< HEAD
 	
 	@GET
 	@Path("/sofer/{emailSofer}")
@@ -55,23 +65,31 @@ public class VehiculController {
 		return vehiculService.getVehiculByIdSofer(sofer.getId());
 	}
 	
+=======
+
+>>>>>>> 7011055ba602b5b2842c0b01ff6f454f9700fe20
 	@POST
 	@Path("/create")
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response createVehicul(Vehicul vehicul) throws ValidationException {
+<<<<<<< HEAD
 		vehiculService.creareVehicul(vehicul);
+=======
+		vehiculService.creareVehicul(vehicul.getId_utilizator(), vehicul.getNumar_inmatriculare(), vehicul.getMarca(),
+				vehicul.getMotorizare());
+>>>>>>> 7011055ba602b5b2842c0b01ff6f454f9700fe20
 		return Response.status(Response.Status.OK.getStatusCode()).build();
 	}
-	
+
 	@GET
 	@Path("/list")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Vehicul> getVehicule() {
 		return vehiculService.listeazaVehicule();
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Transactional
@@ -81,7 +99,7 @@ public class VehiculController {
 		vehiculService.editareVehicul(vehicul, id);
 		return Response.status(Response.Status.OK.getStatusCode()).build();
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
 	@Transactional
@@ -91,7 +109,7 @@ public class VehiculController {
 		vehiculService.stergereVehicul(id);
 		return Response.status(Response.Status.OK.getStatusCode()).build();
 	}
-	
+
 	@POST
 	@Path("/inregistrare")
 	@Transactional
@@ -99,5 +117,32 @@ public class VehiculController {
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	public BooleanResponse creareInregistrare(InregistrareAlimentare inregistrare) throws ValidationException {
 		return new BooleanResponse(vehiculService.creareAlimentare(inregistrare));
+	}
+
+	@POST
+	@Path("/intrareService")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public BooleanResponse creareIntrareService(IntrareService intrareService) throws ValidationException {
+		return new BooleanResponse(vehiculService.creareIntrareService(intrareService));
+	}
+	
+	@POST
+	@Path("/creareAsigurare")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public BooleanResponse creareAsigurare(Asigurare asigurare) throws ValidationException {
+		return new BooleanResponse(vehiculService.creareAsigurare(asigurare));
+	}
+	
+	@POST
+	@Path("/creareTaxa")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public BooleanResponse creareTaxa(Taxa taxa) throws ValidationException {
+		return new BooleanResponse(vehiculService.creareTaxa(taxa));
 	}
 }
