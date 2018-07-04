@@ -62,6 +62,12 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 		jdbcTemplate.update("DELETE from Utilizator WHERE id_utilizator = ? ", id);
 	}
 
+	public List<Utilizator> getAvailableDrivers() {
+		String sql = "select * from Utilizator u where u.id_utilizator not in (select distinct id_utilizator from Vehicul where id_utilizator is not null) and tip_utilizator = 'SOFER'";
+		List<Utilizator> utilizatori = jdbcTemplate.query(sql, new UtilizatorMapper());
+		return utilizatori;
+	}
+
 	
 	
 	

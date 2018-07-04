@@ -1,7 +1,5 @@
 package ro.autogest.server.controller;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
 import ro.autogest.server.model.Asigurare;
-import ro.autogest.server.model.BooleanResponse;
 import ro.autogest.server.model.InregistrareAlimentare;
-import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.IntrareService;
+import ro.autogest.server.model.ServerResponse;
 import ro.autogest.server.model.Taxa;
+import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.Vehicul;
 import ro.autogest.server.model.VehiculListResponse;
 import ro.autogest.server.service.UtilizatorService;
@@ -31,7 +29,8 @@ import ro.autogest.server.service.VehiculService;
 
 @Path("/vehicul")
 public class VehiculController {
-
+	
+	
 	@Autowired
 	private VehiculService vehiculService;
 
@@ -65,9 +64,13 @@ public class VehiculController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public Response createVehicul(Vehicul vehicul) throws ValidationException {
-		vehiculService.creareVehicul(vehicul);
-		return Response.status(Response.Status.OK.getStatusCode()).build();
+	public ServerResponse createVehicul(Vehicul vehicul) {
+		try {
+			vehiculService.creareVehicul(vehicul);
+			return new ServerResponse("Vehicul adaugat cu succes!", true);
+		} catch (ValidationException e) {
+			return new ServerResponse(e.getMessage(), false);
+		}
 	}
 
 	@GET
@@ -102,8 +105,10 @@ public class VehiculController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public BooleanResponse creareInregistrare(InregistrareAlimentare inregistrare) throws ValidationException {
-		return new BooleanResponse(vehiculService.creareAlimentare(inregistrare));
+	public ServerResponse creareInregistrare(InregistrareAlimentare inregistrare) throws ValidationException {
+		vehiculService.creareAlimentare(inregistrare);
+		
+		return new ServerResponse("Inregistrare adaugare cu succes", true);
 	}
 
 	@POST
@@ -111,8 +116,9 @@ public class VehiculController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public BooleanResponse creareIntrareService(IntrareService intrareService) throws ValidationException {
-		return new BooleanResponse(vehiculService.creareIntrareService(intrareService));
+	public ServerResponse creareIntrareService(IntrareService intrareService) throws ValidationException {
+		vehiculService.creareIntrareService(intrareService);
+		return new ServerResponse("Inregistrare adaugare cu succes", true);
 	}
 	
 	@POST
@@ -120,8 +126,9 @@ public class VehiculController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public BooleanResponse creareAsigurare(Asigurare asigurare) throws ValidationException {
-		return new BooleanResponse(vehiculService.creareAsigurare(asigurare));
+	public ServerResponse creareAsigurare(Asigurare asigurare) throws ValidationException {
+		vehiculService.creareAsigurare(asigurare);
+		return new ServerResponse("Asigurare adaugata cu succes", true);
 	}
 	
 	@POST
@@ -129,7 +136,37 @@ public class VehiculController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public BooleanResponse creareTaxa(Taxa taxa) throws ValidationException {
-		return new BooleanResponse(vehiculService.creareTaxa(taxa));
+	public ServerResponse creareTaxa(Taxa taxa) throws ValidationException {
+		vehiculService.creareTaxa(taxa);
+		return new ServerResponse("Taxa adaugata cu succes", true);
+	}
+	
+
+	@PUT
+	@Path("/assign-driver/{idVehicul}")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public ServerResponse asignareSofer(Utilizator utilizator, @PathParam("idVehicul") int idVehicul) throws NotFoundException {
+		try {
+			vehiculService.asignareSofer(idVehicul, utilizator);
+		} catch (ValidationException e) {
+			return new ServerResponse(e.getMessage(), false);
+		}
+		return new ServerResponse("Soferul a fost asignat cu succces!", true);
+	}
+	
+	@PUT
+	@Path("/unassign-driver")
+	@Transactional
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public ServerResponse deAsignareSofer(Vehicul vehicul) throws NotFoundException {
+		try {
+			vehiculService.deAsignareSofer(vehicul.getId());
+		} catch (ValidationException e) {
+			return new ServerResponse(e.getMessage(), false);
+		}
+		return new ServerResponse("Soferul a fost dezasociat cu succces!", true);
 	}
 }

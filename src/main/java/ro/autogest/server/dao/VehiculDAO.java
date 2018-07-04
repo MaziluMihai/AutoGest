@@ -20,4 +20,8 @@ public interface VehiculDAO {
 
 	public void delete(Integer id);
 
+	public void updateStatus(String string, int id);
+
+	public void updateUtilizator(int idVehicul, Integer id);
+
 }

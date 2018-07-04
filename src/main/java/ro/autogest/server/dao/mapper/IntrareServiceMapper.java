@@ -14,7 +14,7 @@ public class IntrareServiceMapper implements RowMapper<IntrareService> {
 		IntrareService b =new IntrareService();
 		
 		b.setCostReparatie(rs.getInt("cost_reparatie"));
-		b.setDataIesire(rs.getDate("data_intrare"));
+		b.setDataIntrare(rs.getDate("data_intrare"));
 		b.setDataIesire(rs.getDate("data_iesire"));
 		b.setIdService(rs.getInt("id_vehicul"));
 		b.setIdVehicul(rs.getInt("id_service"));

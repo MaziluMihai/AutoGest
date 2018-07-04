@@ -17,9 +17,9 @@ public class VehiculDAOImpl implements VehiculDAO{
 	private JdbcTemplate jdbcTemplate;
 
 	public void create(Vehicul vehicul) {
-		String SQL = "insert into Vehicul (id_utilizator, numar_inmatriculare, marca, model, tip, motorizare, status) values (?, ?, ?, ?, ?, ?, 'IN ASTEPTARE')";
+		String SQL = "insert into Vehicul (numar_inmatriculare, marca, modelul, motorizare, tip, an_fabricatiei, consumul_normal, status_vehicul) values (?, ?, ?, ?, ?, ?, ?, 'IN ASTEPTARE')";
 
-		jdbcTemplate.update(SQL, vehicul.getIdUtilizator(), vehicul.getNumarInmatriculare(), vehicul.getMarca(), vehicul.getModelul(), vehicul.getMotorizare(), vehicul.getTip());
+		jdbcTemplate.update(SQL, vehicul.getNumarInmatriculare(), vehicul.getMarca(), vehicul.getModelul(), vehicul.getMotorizare(), vehicul.getTip(), vehicul.getAnFabricatie(), vehicul.getConsum());
 		System.out.println("Created Record Id_utilizator= " + vehicul.getIdUtilizator() + " Numar_inmatriculare= "
 				+ vehicul.getNumarInmatriculare() + " Marca= " + vehicul.getMarca() + " Motorizare = " + vehicul.getMotorizare());
 		return;
@@ -70,5 +70,15 @@ public class VehiculDAOImpl implements VehiculDAO{
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+
+	public void updateStatus(String status, int id) {
+		jdbcTemplate.update("UPDATE Vehicul SET status_vehicul = ? where id_vehicul = ? ",
+				status, id);
+	}
+
+	public void updateUtilizator(int idVehicul, Integer idUtilizator) {
+		jdbcTemplate.update("UPDATE Vehicul SET id_utilizator = ? where id_vehicul = ? ",
+				idUtilizator, idVehicul);
 	}
 }

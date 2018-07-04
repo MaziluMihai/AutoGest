@@ -75,5 +75,9 @@ public class UtilizatorService {
 			return false;
 	}
 
+	public List<Utilizator> getAvailableDrivers() {
+		return utilizatorDAO.getAvailableDrivers();
+	}
+
 
 }

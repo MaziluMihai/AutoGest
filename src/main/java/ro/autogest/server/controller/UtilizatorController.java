@@ -19,19 +19,23 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.autogest.server.exception.NotAuthorizedException;
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
-import ro.autogest.server.model.BooleanResponse;
 import ro.autogest.server.model.CredentialeLogin;
 import ro.autogest.server.model.IntegerResponse;
-import ro.autogest.server.model.StringResponse;
 import ro.autogest.server.model.Utilizator;
+import ro.autogest.server.model.UtilizatorListResponse;
+import ro.autogest.server.model.Vehicul;
 import ro.autogest.server.service.SecurityService;
 import ro.autogest.server.service.UtilizatorService;
+import ro.autogest.server.service.VehiculService;
 
 @Path("/user")
 public class UtilizatorController {
 
 	@Autowired
 	private UtilizatorService utilizatorService;
+	
+	@Autowired
+	private VehiculService vehiculService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -89,6 +93,19 @@ public class UtilizatorController {
 
 		return utilizatorService.getUserByEmail(email);
 	}
+	
+	@GET
+	@Path("/vehicul/{idVehicul}")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Utilizator getDriverByVehicleId(@PathParam("idVehicul") Integer idVehicul) throws NotFoundException {
+		Vehicul vehicul = vehiculService.getVehiculById(idVehicul);
+	
+		if(vehicul == null || vehicul.getIdUtilizator() == null) {
+			throw new NotFoundException("Vehiculul nu a fost gasit sau nu are sofer asignat!");
+		}
+		
+		return utilizatorService.getUserById(vehicul.getIdUtilizator());
+	}
 
 	@POST
 	@Path("/login")
@@ -102,6 +119,12 @@ public class UtilizatorController {
 		
 	}
 	
-	
+	@GET
+	@Path("/available-drivers")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public UtilizatorListResponse getAvailableDrivers() throws NotFoundException {
+
+		return new UtilizatorListResponse(utilizatorService.getAvailableDrivers());
+	}
 
 }

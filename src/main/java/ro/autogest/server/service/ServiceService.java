@@ -15,4 +15,6 @@ public class ServiceService {
 	public List<ro.autogest.server.model.Service> listaServiceuri(){
 		return serviceDAO.listaServiceuri();
 	}
+	
+
 }

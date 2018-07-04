@@ -19,4 +19,6 @@ public interface UtilizatorDAO {
 
 	public List<Utilizator> listaUtilizatori();
 
+	public List<Utilizator> getAvailableDrivers();
+
 }
