@@ -25,6 +25,7 @@ import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.IntrareService;
 import ro.autogest.server.model.Taxa;
 import ro.autogest.server.model.Vehicul;
+import ro.autogest.server.model.VehiculListResponse;
 import ro.autogest.server.service.UtilizatorService;
 import ro.autogest.server.service.VehiculService;
 
@@ -72,8 +73,8 @@ public class VehiculController {
 	@GET
 	@Path("/list")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Vehicul> getVehicule() {
-		return vehiculService.listeazaVehicule();
+	public VehiculListResponse getVehicule() {
+		return new VehiculListResponse(vehiculService.listeazaVehicule());
 	}
 
 	@PUT

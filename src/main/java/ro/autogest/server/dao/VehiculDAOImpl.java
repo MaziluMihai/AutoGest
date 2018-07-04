@@ -47,7 +47,7 @@ public class VehiculDAOImpl implements VehiculDAO{
 	}
 
 	public List<Vehicul> listaVehicule() {
-		String sql = "select * from Vehiculr";
+		String sql = "select * from Vehicul";
 		List<Vehicul> vehicule = jdbcTemplate.query(sql, new VehiculMapper());
 		return vehicule;
 	}

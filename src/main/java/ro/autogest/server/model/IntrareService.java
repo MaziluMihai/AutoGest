@@ -1,15 +1,17 @@
 package ro.autogest.server.model;
 
+import java.util.Date;
+
 
 
 public class IntrareService {
 
 	private String tipReparatie;
-	private String costReparatie;
+	private Integer costReparatie;
 	private Integer idVehicul;
 	private Integer idService;
-	private String dataIntrare;
-	private String dataIesire;
+	private Date dataIntrare;
+	private Date dataIesire;
 
 	public String getTipReparatie() {
 		return tipReparatie;
@@ -19,11 +21,13 @@ public class IntrareService {
 		this.tipReparatie = tipReparatie;
 	}
 
-	public String getCostReparatie() {
+	
+
+	public Integer getCostReparatie() {
 		return costReparatie;
 	}
 
-	public void setCostReparatie(String costReparatie) {
+	public void setCostReparatie(Integer costReparatie) {
 		this.costReparatie = costReparatie;
 	}
 
@@ -43,22 +47,23 @@ public class IntrareService {
 		this.idService = idService;
 	}
 
-	public String getDataIntrare() {
+	public Date getDataIntrare() {
 		return dataIntrare;
 	}
 
-	public void setDataIntrare(String dataIntrare) {
+	public void setDataIntrare(Date dataIntrare) {
 		this.dataIntrare = dataIntrare;
 	}
 
-	public String getDataIesire() {
+	public Date getDataIesire() {
 		return dataIesire;
 	}
 
-	public void setDataIesire(String dataIesire) {
+	public void setDataIesire(Date dataIesire) {
 		this.dataIesire = dataIesire;
 	}
 
+	
 
 
 	

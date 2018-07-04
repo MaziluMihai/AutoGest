@@ -6,7 +6,7 @@ public class BenzinarieListResponse {
 
 	private List<Benzinarie> response;
 
-	
+	public BenzinarieListResponse(){}
 	
 	public BenzinarieListResponse(List<Benzinarie> response) {
 		super();

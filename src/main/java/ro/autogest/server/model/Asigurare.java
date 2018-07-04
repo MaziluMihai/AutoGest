@@ -1,5 +1,7 @@
 package ro.autogest.server.model;
 
+import java.util.Date;
+
 public class Asigurare {
 
 	private Integer idUtilizator;
@@ -7,8 +9,8 @@ public class Asigurare {
 	private String tipAsigurare;
 	private Integer costAsigurare;
 	private String companiaAsiguratoare;
-	private String dataCreare;
-	private String dataExpirare;
+	private Date dataCreare;
+	private Date dataExpirare;
 
 	public Integer getIdUtilizator() {
 		return idUtilizator;
@@ -50,20 +52,21 @@ public class Asigurare {
 		this.companiaAsiguratoare = companiaAsiguratoare;
 	}
 
-	public String getDataCreare() {
+	public Date getDataCreare() {
 		return dataCreare;
 	}
 
-	public void setDataCreare(String dataCreare) {
+	public void setDataCreare(Date dataCreare) {
 		this.dataCreare = dataCreare;
 	}
 
-	public String getDataExpirare() {
+	public Date getDataExpirare() {
 		return dataExpirare;
 	}
 
-	public void setDataExpirare(String dataExpirare) {
+	public void setDataExpirare(Date dataExpirare) {
 		this.dataExpirare = dataExpirare;
 	}
+
 
 }

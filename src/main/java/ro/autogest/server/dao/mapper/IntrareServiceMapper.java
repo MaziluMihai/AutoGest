@@ -13,9 +13,9 @@ public class IntrareServiceMapper implements RowMapper<IntrareService> {
 	public IntrareService mapRow(ResultSet rs, int row) throws SQLException {
 		IntrareService b =new IntrareService();
 		
-		b.setCostReparatie(rs.getString("cost_reparatie"));
-		b.setDataIesire(rs.getString("data_intrare"));
-		b.setDataIesire(rs.getString("data_iesire"));
+		b.setCostReparatie(rs.getInt("cost_reparatie"));
+		b.setDataIesire(rs.getDate("data_intrare"));
+		b.setDataIesire(rs.getDate("data_iesire"));
 		b.setIdService(rs.getInt("id_vehicul"));
 		b.setIdVehicul(rs.getInt("id_service"));
 		b.setTipReparatie(rs.getString("tip_reparatie"));
