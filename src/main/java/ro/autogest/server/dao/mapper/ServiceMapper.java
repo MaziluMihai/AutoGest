@@ -11,6 +11,7 @@ public class ServiceMapper implements RowMapper<Service> {
 
 	public Service mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Service s = new Service();
+		s.setId(rs.getInt("id_service"));
 		s.setDenumire(rs.getString("denumire"));
 		s.setEmail(rs.getString("email"));
 		s.setLocatie(rs.getString("locatie"));

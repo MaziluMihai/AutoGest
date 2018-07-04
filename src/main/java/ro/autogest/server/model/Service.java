@@ -2,10 +2,20 @@ package ro.autogest.server.model;
 
 public class Service {
 
+	private Integer id;
 	private String denumire;
 	private String locatie;
 	private String email;
 	private String telefon;
+	
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getDenumire() {
 		return denumire;
 	}
