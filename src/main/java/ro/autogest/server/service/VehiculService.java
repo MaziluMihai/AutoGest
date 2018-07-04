@@ -21,20 +21,28 @@ public class VehiculService {
 	@Autowired
 	private InregistrareAlimentareDAO inregistrareDAO;
 
-	public Vehicul creareVehicul(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare) throws ValidationException {
+	public Vehicul creareVehicul(Vehicul vehicul) throws ValidationException {
 		// validate unique id_utilizator
-		if (vehiculDAO.getVehiculByNumarInmatriculare(numar_inmatriculare) != null) {
-			throw new ValidationException("Vehiculul cu numarul " + numar_inmatriculare + " exista deja!");
+		if (vehiculDAO.getVehiculByNumarInmatriculare(vehicul.getNumarInmatriculare()) != null) {
+			throw new ValidationException("Vehiculul cu numarul " + vehicul.getNumarInmatriculare() + " exista deja!");
 		}
 
-		vehiculDAO.create(id_utilizator, numar_inmatriculare, marca, motorizare);
-		return vehiculDAO.getVehiculByNumarInmatriculare(numar_inmatriculare);
+		vehiculDAO.create(vehicul);
+		return vehiculDAO.getVehiculByNumarInmatriculare(vehicul.getNumarInmatriculare());
 	}
 
 	public Vehicul getVehiculById(int id) throws NotFoundException {
 		Vehicul vehicul = vehiculDAO.getVehicul(id);
 		if (vehicul == null) {
 			throw new NotFoundException("Vehiculul nu a fost gasit");
+		}
+		return vehicul;
+	}
+	
+	public Vehicul getVehiculByIdSofer(int idSofer) throws NotFoundException {
+		Vehicul vehicul = vehiculDAO.getVehiculByIdSofer(idSofer);
+		if (vehicul == null) {
+			throw new NotFoundException("Vehiculul nu a fost gasit pe baza id-ului de sofer");
 		}
 		return vehicul;
 	}
@@ -48,8 +56,8 @@ public class VehiculService {
 		if (vehicul2 == null) {
 			throw new NotFoundException("Vehiculul nu a fost gasit");
 		}
-		if (vehicul.getNumar_inmatriculare() == null) {
-			vehicul.setNumar_inmatriculare(vehicul2.getNumar_inmatriculare());
+		if (vehicul.getNumarInmatriculare() == null) {
+			vehicul.setNumarInmatriculare(vehicul2.getNumarInmatriculare());
 		}
 
 		vehiculDAO.update(vehicul, id);

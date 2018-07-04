@@ -6,11 +6,13 @@ import ro.autogest.server.model.Vehicul;
 
 public interface VehiculDAO {
 	
-	public void create(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare);
+	public void create(Vehicul vehicul);
 
 	public Vehicul getVehicul(Integer id);
 
 	public Vehicul getVehiculByNumarInmatriculare(String numar_inmatriculare);
+	
+	public Vehicul getVehiculByIdSofer(Integer idSofer);
 
 	public List<Vehicul> listaVehicule();
 

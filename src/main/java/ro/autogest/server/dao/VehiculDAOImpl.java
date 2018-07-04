@@ -7,9 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import ro.autogest.server.dao.mapper.UtilizatorMapper;
 import ro.autogest.server.dao.mapper.VehiculMapper;
-import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.Vehicul;
 
 @Repository
@@ -18,12 +16,12 @@ public class VehiculDAOImpl implements VehiculDAO{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void create(Integer id_utilizator, String numar_inmatriculare, String marca, String motorizare) {
-		String SQL = "insert into Vehicul (id_utilizator, numar_inmatriculare, marca, motorizare) values (?, ?, ?, ?)";
+	public void create(Vehicul vehicul) {
+		String SQL = "insert into Vehicul (id_utilizator, numar_inmatriculare, marca, model, tip, motorizare, status) values (?, ?, ?, ?, ?, ?, 'IN ASTEPTARE')";
 
-		jdbcTemplate.update(SQL, id_utilizator, numar_inmatriculare, marca, motorizare);
-		System.out.println("Created Record Id_utilizator= " + id_utilizator + " Numar_inmatriculare= "
-				+ numar_inmatriculare + " Marca= " + marca + " Motorizare = " + motorizare);
+		jdbcTemplate.update(SQL, vehicul.getIdUtilizator(), vehicul.getNumarInmatriculare(), vehicul.getMarca(), vehicul.getModelul(), vehicul.getMotorizare(), vehicul.getTip());
+		System.out.println("Created Record Id_utilizator= " + vehicul.getIdUtilizator() + " Numar_inmatriculare= "
+				+ vehicul.getNumarInmatriculare() + " Marca= " + vehicul.getMarca() + " Motorizare = " + vehicul.getMotorizare());
 		return;
 	}
 
@@ -56,11 +54,21 @@ public class VehiculDAOImpl implements VehiculDAO{
 
 	public void update(Vehicul vehicul, Integer id) {
 		jdbcTemplate.update("UPDATE Vehicul SET id_vehicul = ? , numar_inmatriculare= ? , marca= ?, motorizare = ? ",
-				vehicul.getId_utilizator(), vehicul.getNumar_inmatriculare(), vehicul.getMarca(),
+				vehicul.getId(), vehicul.getNumarInmatriculare(), vehicul.getMarca(),
 				vehicul.getMotorizare());
 	}
 
 	public void delete(Integer id) {
 		jdbcTemplate.update("DELETE from Vehicul WHERE id_vehicul = ? ", id);
+	}
+
+	public Vehicul getVehiculByIdSofer(Integer idSofer) {
+		String sql = "SELECT * FROM Vehicul WHERE id_utilizator = ?";
+
+		try {
+			return jdbcTemplate.queryForObject(sql, new Object[] { idSofer }, new VehiculMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 }

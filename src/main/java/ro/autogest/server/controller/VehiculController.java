@@ -20,7 +20,9 @@ import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
 import ro.autogest.server.model.BooleanResponse;
 import ro.autogest.server.model.InregistrareAlimentare;
+import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.Vehicul;
+import ro.autogest.server.service.UtilizatorService;
 import ro.autogest.server.service.VehiculService;
 
 @Path("/vehicul")
@@ -29,6 +31,8 @@ public class VehiculController {
 	@Autowired
 	private VehiculService vehiculService;
 
+	@Autowired
+	private UtilizatorService utilizatorService;
    
 	@GET
 	@Path("/{id}")
@@ -38,13 +42,26 @@ public class VehiculController {
 		return vehiculService.getVehiculById(id);
 	}
 	
+	@GET
+	@Path("/sofer/{emailSofer}")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Vehicul getVehiculByEmailSofer(@PathParam("emailSofer") String emailSofer) throws NotFoundException {
+
+		Utilizator sofer = utilizatorService.getUserByEmail(emailSofer);
+		if(sofer == null) {
+			throw new NotFoundException("Soferul nu a fost gasit!");
+		}
+		
+		return vehiculService.getVehiculByIdSofer(sofer.getId());
+	}
+	
 	@POST
 	@Path("/create")
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
 	public Response createVehicul(Vehicul vehicul) throws ValidationException {
-		vehiculService.creareVehicul(vehicul.getId_utilizator(), vehicul.getNumar_inmatriculare(), vehicul.getMarca(), vehicul.getMotorizare());
+		vehiculService.creareVehicul(vehicul);
 		return Response.status(Response.Status.OK.getStatusCode()).build();
 	}
 	
