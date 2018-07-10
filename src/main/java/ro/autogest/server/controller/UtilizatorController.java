@@ -21,6 +21,7 @@ import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
 import ro.autogest.server.model.CredentialeLogin;
 import ro.autogest.server.model.IntegerResponse;
+import ro.autogest.server.model.ServerResponse;
 import ro.autogest.server.model.Utilizator;
 import ro.autogest.server.model.UtilizatorListResponse;
 import ro.autogest.server.model.Vehicul;
@@ -51,8 +52,8 @@ public class UtilizatorController {
 	@GET
 	@Path("/list")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Utilizator> getUtilizatori() {
-		return utilizatorService.listeazaUtilizatori();
+	public UtilizatorListResponse getUtilizatori() {
+		return new UtilizatorListResponse(utilizatorService.listeazaUtilizatori());
 	}
 
 	@POST
@@ -60,10 +61,15 @@ public class UtilizatorController {
 	@Transactional
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_JSON })
-	public Response createUtilizator(Utilizator utilizator) throws ValidationException {
-		utilizatorService.creareUtilizator(utilizator.getNume(), utilizator.getPrenume(),utilizator.getTip_utilizator(),
-				utilizator.getEmail(),utilizator.getParola(), utilizator.getFunctia(),utilizator.getTelefon());
-		return Response.status(Response.Status.OK.getStatusCode()).build();
+	public ServerResponse createUtilizator(Utilizator utilizator) throws ValidationException {
+		try {
+			utilizatorService.creareUtilizator(utilizator.getNume(), utilizator.getPrenume(),utilizator.getTip_utilizator(),
+					utilizator.getEmail(),utilizator.getParola(), utilizator.getFunctia(),utilizator.getTelefon());
+			return new ServerResponse("Utilizator adaugat cu succes!", true);
+		} catch (ValidationException e) {
+			return new ServerResponse(e.getMessage(), false);
+		}
+		
 	}
 
 	@PUT

@@ -18,7 +18,7 @@ public class UtilizatorDAOImpl implements UtilizatorDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	public void create(String nume, String prenume, String tip_utilizator, String email, String parola, String functia, Integer telefon) {
-		String SQL = "insert into Utilizator (nume, prenume, tip_utilizator, email, parola, functia, telefon) values (?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "insert into Utilizator (nume, prenume, tip_utilizator, email, parola, functia, telefon, token) values (?, ?, ?, ?, ?, ?, ?, 0)";
 
 		jdbcTemplate.update(SQL, nume, prenume, tip_utilizator, email, parola, functia, telefon );
 		System.out.println("Created Record Nume = " + nume + " Prenume= " + prenume + " Tip= " + tip_utilizator + " Emaill = " + email + " Parola= "

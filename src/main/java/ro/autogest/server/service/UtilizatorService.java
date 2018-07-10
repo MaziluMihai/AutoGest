@@ -10,6 +10,7 @@ import ro.autogest.server.dao.UtilizatorDAO;
 import ro.autogest.server.exception.NotFoundException;
 import ro.autogest.server.exception.ValidationException;
 import ro.autogest.server.model.Utilizator;
+import ro.autogest.server.utils.Utils;
 
 @Service
 public class UtilizatorService {
@@ -26,7 +27,7 @@ public class UtilizatorService {
 			throw new ValidationException("Utilizatorul cu emailul " + email + " exista deja!");
 		}
 
-		utilizatorDAO.create(nume, prenume, tip_utilizator, email, parola, functia, telefon);
+		utilizatorDAO.create(nume, prenume, tip_utilizator, email, Utils.hashPassword(parola), functia, telefon);
 		return utilizatorDAO.getUtilizatorByEmail(email);
 	}
 
