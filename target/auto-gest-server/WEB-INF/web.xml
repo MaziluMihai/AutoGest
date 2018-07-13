@@ -37,4 +37,14 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
+
+	<filter>
+	    <display-name>SecurityFilter</display-name>
+	    <filter-name>SecurityFilter</filter-name>
+	    <filter-class>ro.autogest.server.filter.SecurityFilter</filter-class>
+	  </filter>
+	  <filter-mapping>
+	    <filter-name>SecurityFilter</filter-name>
+	    <url-pattern>/rest/*</url-pattern>
+	  </filter-mapping>
 </web-app>

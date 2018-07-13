@@ -3,15 +3,12 @@ package ro.autogest.server.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import ro.autogest.server.dao.mapper.BenzinarieMapper;
-import ro.autogest.server.dao.mapper.UtilizatorMapper;
 import ro.autogest.server.model.Benzinarie;
-import ro.autogest.server.model.Utilizator;
 
 @Repository
 public class BenzinarieDAOImpl implements BenzinarieDAO {
@@ -19,11 +16,10 @@ public class BenzinarieDAOImpl implements BenzinarieDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	
 	public void create(String denumire, String locatie, String telefon, String email) {
 		String SQL = "insert into Benzinarie (denumire, locatie, telefon, email) values (?, ?, ?, ?)";
 
-		jdbcTemplate.update(SQL, denumire, locatie, telefon, email );
+		jdbcTemplate.update(SQL, denumire, locatie, telefon, email);
 		return;
 	}
 
@@ -43,8 +39,19 @@ public class BenzinarieDAOImpl implements BenzinarieDAO {
 		return benzinarii;
 	}
 
-	
-	
-	
+	public void update(Integer id, String denumire, String locatie, String telefon, String email) {
+		String SQL = "update  Benzinarie set denumire=?, locatie=?, telefon=?, email=? where id_benzinarie=?";
+
+		jdbcTemplate.update(SQL, denumire, locatie, telefon, email, id);
+		return;
+
+	}
+
+	public void delete(Integer id) {
+		String SQL = "delete from Benzinarie where id_benzinarie=?";
+		jdbcTemplate.update(SQL, id);
+		return;
+
+	}
 
 }

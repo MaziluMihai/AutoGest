@@ -13,4 +13,7 @@ public interface BenzinarieDAO {
 
 	public List<Benzinarie> listaBenzinarii();
 
+	public void update(Integer id, String denumire, String locatie, String telefon, String email);
+
+	public void delete(Integer id);
 }
