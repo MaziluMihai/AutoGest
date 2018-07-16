@@ -20,7 +20,7 @@ public class VehiculMapper implements RowMapper<Vehicul> {
 		v.setTip(rs.getString("tip"));
 		v.setMotorizare(rs.getString("motorizare"));
 		v.setAnFabricatie(rs.getInt("an_fabricatiei"));
-		v.setConsum(rs.getInt("consumul_normal"));
+		v.setConsum(rs.getDouble("consumul_normal"));
 
 		return v;
 

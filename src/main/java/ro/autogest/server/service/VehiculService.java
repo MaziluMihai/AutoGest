@@ -104,6 +104,7 @@ public class VehiculService {
 		// TODO:
 		// validare numar de km, daca id-ul vehicului corespunde utriliztorului care
 		// face cererea, etc..
+		
 		inregistrareDAO.create(inregistrare);
 		return true;
 	}

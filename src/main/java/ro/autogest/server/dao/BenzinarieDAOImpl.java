@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import ro.autogest.server.dao.mapper.BenzinarieMapper;
+import ro.autogest.server.dao.mapper.UtilizatorMapper;
 import ro.autogest.server.model.Benzinarie;
+import ro.autogest.server.model.Utilizator;
 
 @Repository
 public class BenzinarieDAOImpl implements BenzinarieDAO {
@@ -51,6 +53,18 @@ public class BenzinarieDAOImpl implements BenzinarieDAO {
 		String SQL = "delete from Benzinarie where id_benzinarie=?";
 		jdbcTemplate.update(SQL, id);
 		return;
+
+	}
+
+	public Benzinarie getBenzinarieByEmail(String email) {
+		String sql = "SELECT * FROM Benzinarie WHERE email = ?";
+
+		List<Benzinarie> benzinarii = jdbcTemplate.query(sql, new Object[] { email }, new BenzinarieMapper());
+
+		if (benzinarii == null || (benzinarii != null && benzinarii.size() == 0)) {
+			return null;
+		}
+		return benzinarii.get(0);
 
 	}
 

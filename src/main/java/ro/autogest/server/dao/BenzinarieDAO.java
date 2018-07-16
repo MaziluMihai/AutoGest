@@ -10,6 +10,8 @@ public interface BenzinarieDAO {
 	public void create(String denumire, String locatie, String telefon, String email);
 
 	public Benzinarie getBenzinarie(Integer id);
+	
+	public Benzinarie getBenzinarieByEmail(String email);
 
 	public List<Benzinarie> listaBenzinarii();
 

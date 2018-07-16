@@ -3,8 +3,8 @@ package ro.autogest.server.model;
 public class InregistrareAlimentare {
 
 	private String tipCarburant;
-	private Integer pret;
-	private Integer cantitate;
+	private Double pret;
+	private Double cantitate;
 	private Integer km;
 	private Integer idVehicul;
 	private Integer idBenzinarie;
@@ -17,16 +17,16 @@ public class InregistrareAlimentare {
 	public void setTipCarburant(String tipCarburant) {
 		this.tipCarburant = tipCarburant;
 	}
-	public Integer getPret() {
+	public Double getPret() {
 		return pret;
 	}
-	public void setPret(Integer pret) {
+	public void setPret(Double pret) {
 		this.pret = pret;
 	}
-	public Integer getCantitate() {
+	public Double getCantitate() {
 		return cantitate;
 	}
-	public void setCantitate(Integer cantitate) {
+	public void setCantitate(Double cantitate) {
 		this.cantitate = cantitate;
 	}
 	public Integer getKm() {

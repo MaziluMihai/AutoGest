@@ -14,7 +14,7 @@ public class Vehicul {
 	private String tip;
 	private String motorizare;
 	private Integer anFabricatie;
-	private Integer consum;
+	private Double consum;
 	
 	public Integer getId() {
 		return id;
@@ -71,10 +71,10 @@ public class Vehicul {
 	public void setAnFabricatie(Integer anFabricatie) {
 		this.anFabricatie = anFabricatie;
 	}
-	public Integer getConsum() {
+	public Double getConsum() {
 		return consum;
 	}
-	public void setConsum(Integer consum) {
+	public void setConsum(Double consum) {
 		this.consum = consum;
 	}
 

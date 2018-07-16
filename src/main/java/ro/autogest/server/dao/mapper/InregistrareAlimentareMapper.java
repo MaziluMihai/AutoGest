@@ -11,9 +11,9 @@ public class InregistrareAlimentareMapper implements org.springframework.jdbc.co
 		InregistrareAlimentare b =new InregistrareAlimentare();
 		
 		b.setTipCarburant(rs.getString("tip_carburant"));
-		b.setCantitate(rs.getInt("cantitate"));
+		b.setCantitate(rs.getDouble("cantitate"));
 		b.setKm(rs.getInt("numar_km"));
-		b.setPret(rs.getInt("pret_litru"));
+		b.setPret(rs.getDouble("pret_litru"));
 		return b;
 }
 }
